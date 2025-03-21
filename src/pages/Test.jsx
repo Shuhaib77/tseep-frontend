@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
-import { Slider } from "@material-tailwind/react";
+
 import Sidbar from "../components/test/Sidbar";
 import Questions from "../components/test/Questions";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchDataById } from "../../redux/questionsSlice";
+
 
 function Test() {
   const { id } = useParams();

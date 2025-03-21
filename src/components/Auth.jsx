@@ -2,8 +2,12 @@ import React from "react";
 import Header from "./Header";
 import { useFormik } from "formik";
 import axios from "axios";
+import { registerSchema } from "../utils/registerValidation";
+import { loginschema } from "../utils/loginValidation";
+import { useNavigate } from "react-router-dom";
 
 function Auth({ heading }) {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues:
       heading === "Register"
@@ -16,31 +20,30 @@ function Auth({ heading }) {
             countryCode: "",
           }
         : { phone: "", password: "", countryCode: "+1" },
+    validationSchema: heading === "Register" ? registerSchema : loginschema,
     onSubmit: async (values) => {
       try {
-    
         if (heading === "Register") {
-       await axios.post(
-            "http://localhost:6001/api/register",
+          await axios.post("http://localhost:6001/api/register", values);
+          alert("Registration succeess");
+          navigate("/login");
+        } else {
+          const res = await axios.post(
+            "http://localhost:6001/api/login",
             values
           );
-        } else {
-         const res=await axios.post("http://localhost:6001/api/login", values);
-         localStorage.setItem("token",res.data.token)
-         localStorage.setItem("id",res.data.data._id)
-         console.log(res.data.token);
-
-         
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("id", res.data.data._id);
+          navigate("/");
+          console.log(res.data.token);
         }
-        alert("Registered successfully");
       } catch (error) {
-        console.error("Error:", error);
-        alert("Registration failed");
+        console.log(error);
       }
     },
   });
 
-  const { handleBlur, handleChange, handleSubmit, values } = formik;
+  const { handleBlur, handleChange, handleSubmit, values, errors } = formik;
 
   const countryCodes = [
     { code: "+1", name: "USA" },
@@ -54,15 +57,15 @@ function Auth({ heading }) {
     <>
       <Header />
 
-      <div className="grid grid-cols-1">
+      <div className="grid grid-cols-1 h-[69vh]">
         <h1 className="text-center h-1/3 font-bold text-4xl underline decoration-amber-600 decoration-5">
           {heading}
         </h1>
-        <div className="flex justify-center items-center h-[76vh] w-full">
-          <div className="w-[400px] p-[20px] shadow-2xl">
-            <form className="grid grid-cols-1 gap-y-5" onSubmit={handleSubmit}>
+        <div className="flex justify-center items-center h-full w-full">
+          <div className="w-[400px] h-full p-[10px] grid place-content-center shadow-2xl">
+            <form className="grid grid-cols-1 gap-y-3" onSubmit={handleSubmit}>
               {heading === "Register" && (
-                <div className="flex flex-col gap-y-5">
+                <div className="flex flex-col gap-y-3">
                   <label htmlFor="name" className="text-start">
                     Full name
                   </label>
@@ -75,6 +78,9 @@ function Auth({ heading }) {
                     value={values.name}
                     name="name"
                   />
+                  {errors.name && (
+                    <span className="text-red-700 text-sm">{errors.name}</span>
+                  )}
                   <label htmlFor="email" className="text-start">
                     Email
                   </label>
@@ -87,6 +93,9 @@ function Auth({ heading }) {
                     value={values.email}
                     name="email"
                   />
+                  {errors.email && (
+                    <h1 className="text-red-700">{errors.email}</h1>
+                  )}
                 </div>
               )}
               <div>
@@ -105,6 +114,7 @@ function Auth({ heading }) {
                       </option>
                     ))}
                   </select>
+
                   <span className="relative right-8 top-2 text-gray-500 pointer-events-none w-0.5">
                     <i className="fa-solid fa-chevron-down"></i>
                   </span>
@@ -117,7 +127,13 @@ function Auth({ heading }) {
                     value={values.phone}
                   />
                 </div>
+                {errors.phone && (
+                  <h1 className="text-red-700">{errors.phone}</h1>
+                )}
               </div>
+              {errors.countryCode && (
+                <span className="text-red-700">{errors.countryCode}</span>
+              )}
               {heading === "Register" && (
                 <div>
                   <label htmlFor="status" className="text-start">
@@ -133,6 +149,7 @@ function Auth({ heading }) {
                       onBlur={handleBlur}
                       checked={values.status === "Employee"}
                     />
+
                     <label htmlFor="status">Employee</label>
                     <input
                       type="radio"
@@ -145,6 +162,9 @@ function Auth({ heading }) {
                     />
                     <label htmlFor="status">Student</label>
                   </div>
+                  {errors.status && (
+                    <span className="text-red-700">{errors.status}</span>
+                  )}
                 </div>
               )}
               <label htmlFor="password">Password</label>
@@ -157,6 +177,9 @@ function Auth({ heading }) {
                 onBlur={handleBlur}
                 value={values.password}
               />
+              {errors.password && (
+                <span className="text-red-700">{errors.password}</span>
+              )}
               <button
                 type="submit"
                 className="p-2 bg-blue-900 text-white rounded"

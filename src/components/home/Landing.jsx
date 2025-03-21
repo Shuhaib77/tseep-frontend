@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Landing() {
+  const navigate=useNavigate()
   return (
     <>
       <div className="flex justify-center items-center h-[86vh]">
@@ -22,7 +24,9 @@ function Landing() {
               </label>
             </div>
             <div className="w-1/2 text-end">
-              <button className="w-[130px] rounded bg-blue-950 pt-3 pb-3 text-white ">
+              <button className="w-[130px] rounded bg-blue-950 pt-3 pb-3 text-white " onClick={()=>{
+                navigate('/register')
+              }}>
                 Get Start
               </button>
             </div>
