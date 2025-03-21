@@ -56,8 +56,7 @@ function Questions({ open, setOpen, ids }) {
           setPage(page + 1);
         } else {
           try {
-            // Submit all answers at the end
-            await axios.post("", values.answers);
+            // await axios.post("", values.answers);
             alert("Answers submitted successfully!");
           } catch (error) {
             console.error("Submission failed:", error);
