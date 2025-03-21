@@ -8,7 +8,7 @@ function Landing() {
       <div className="flex justify-center items-center h-[86vh]">
         <div className="text-center">
           <h1 className="text-8xl font-medium ">
-            Welcome to TSEEP Mastery Box
+            Welcome to <span className="underline decoration-amber-600 decoration-5">TSEEP Mastery Box</span> 
           </h1>
           <h1 className="text-gray-400 text-3xl">
             Unlock Your Potentiol with AI inspired tool

@@ -47,7 +47,7 @@ function Questions({ open, setOpen, ids }) {
   return (
     <Formik
       initialValues={{
-        answers: {}, 
+        answers: {},
       }}
       onSubmit={async (values) => {
         console.log("Final Answers:", values.answers);
@@ -69,7 +69,10 @@ function Questions({ open, setOpen, ids }) {
         <Form>
           <div>
             <div className={open ? "relative right-20" : "ml-10"}>
-              <i className="fa-solid fa-table-cells-large fa-2xl cursor-pointer" onClick={() => setOpen(!open)}></i>
+              <i
+                className="fa-solid fa-table-cells-large fa-2xl cursor-pointer"
+                onClick={() => setOpen(!open)}
+              ></i>
             </div>
 
             <div className="flex justify-center items-center h-[73vh] w-full">
@@ -80,7 +83,9 @@ function Questions({ open, setOpen, ids }) {
                     {[...Array(totalPages)].map((_, i) => (
                       <div
                         key={i}
-                        className={`h-[7px] ${i < page ? "bg-blue-900" : "bg-gray-300"} rounded`}
+                        className={`h-[7px] ${
+                          i < page ? "bg-blue-900" : "bg-gray-300"
+                        } rounded`}
                         style={{ width: `${100 / totalPages}%` }}
                       ></div>
                     ))}
@@ -102,18 +107,28 @@ function Questions({ open, setOpen, ids }) {
                         <div className="w-[50px] bg-blue-950 text-white h-[50px] rounded-full grid place-content-center">
                           {page}
                         </div>
-                        <h1 className="text-2xl font-light">{currentQuestion.question}</h1>
+                        <h1 className="text-2xl font-light">
+                          {currentQuestion.question}
+                        </h1>
                       </div>
 
                       <div className="h-[50vh] grid grid-cols-1 rounded bg-white p-5 overflow-y-scroll">
                         {currentQuestion.options?.map((option, idx) => (
-                          <div key={idx} className="w-[350px] h-[70px] flex items-center gap-x-5 bg-gray-300 p-5 rounded mb-2">
+                          <div
+                            key={idx}
+                            className="w-[350px] h-[70px] flex items-center gap-x-5 bg-gray-300 p-5 rounded mb-2"
+                          >
                             <Field
                               type="radio"
                               name={`answers[${currentQuestion._id}]`}
                               value={option}
                               className="mr-3"
-                              onChange={() => setFieldValue(`answers[${currentQuestion._id}]`, option)}
+                              onChange={() =>
+                                setFieldValue(
+                                  `answers[${currentQuestion._id}]`,
+                                  option
+                                )
+                              }
                             />
                             {option}
                           </div>
@@ -121,7 +136,9 @@ function Questions({ open, setOpen, ids }) {
                       </div>
                     </div>
                   ) : (
-                    <h1 className="text-center text-2xl">No questions available</h1>
+                    <h1 className="text-center text-2xl">
+                      No questions available
+                    </h1>
                   )}
                 </div>
 
@@ -134,11 +151,13 @@ function Questions({ open, setOpen, ids }) {
                   >
                     Previous
                   </button>
-                  <button type="submit" className="p-2 bg-blue-900 text-white rounded">
+                  <button
+                    type="submit"
+                    className="p-2 bg-blue-900 text-white rounded"
+                  >
                     {page === totalPages ? "Submit" : "Next"}
                   </button>
-                 {/* { console.log(values)} */}
-                  
+                  {/* { console.log(values)} */}
                 </div>
               </div>
             </div>
