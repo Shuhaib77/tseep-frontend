@@ -5,14 +5,11 @@ import Sidbar from "../components/test/Sidbar";
 import Questions from "../components/test/Questions";
 import { useNavigate, useParams } from "react-router-dom";
 
-
 function Test() {
   const { id } = useParams();
-  console.log(id,"idsooopoo");
-  
+  console.log(id, "idsooopoo");
+
   const [open, setOpen] = useState(false);
-
-
 
   return (
     <div>

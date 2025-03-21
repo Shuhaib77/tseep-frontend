@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchData = createAsyncThunk("questionData", async () => {
   try {
-    const res = await axios.get("http://localhost:6001/api/qpool");
+    const res = await axios.get("https://tseep-backend-1.onrender.com/api/qpool");
     console.log(res);
 
     return res.data.data;
@@ -14,7 +14,7 @@ export const fetchData = createAsyncThunk("questionData", async () => {
 
 export const fetchDataById = createAsyncThunk("quesById", async (id) => {
   try {
-    const res = await axios.get(`http://localhost:6001/api/qpool/${id}`);
+    const res = await axios.get(`https://tseep-backend-1.onrender.com/api/qpool/${id}`);
     console.log(res);
 
     return res.data.data;

@@ -24,12 +24,12 @@ function Auth({ heading }) {
     onSubmit: async (values) => {
       try {
         if (heading === "Register") {
-          await axios.post("http://localhost:6001/api/register", values);
+          await axios.post("https://tseep-backend-1.onrender.com/api/register", values);
           alert("Registration succeess");
           navigate("/login");
         } else {
           const res = await axios.post(
-            "http://localhost:6001/api/login",
+            "https://tseep-backend-1.onrender.com/login",
             values
           );
           localStorage.setItem("token", res.data.token);
