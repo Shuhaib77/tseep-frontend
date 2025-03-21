@@ -47,7 +47,7 @@ function Questions({ open, setOpen, ids }) {
   return (
     <Formik
       initialValues={{
-        answers: {}, // Store answers dynamically
+        answers: {}, 
       }}
       onSubmit={async (values) => {
         console.log("Final Answers:", values.answers);
@@ -57,7 +57,7 @@ function Questions({ open, setOpen, ids }) {
         } else {
           try {
             // Submit all answers at the end
-            await axios.post("http://localhost:6001/api/submit-answers", values.answers);
+            await axios.post("", values.answers);
             alert("Answers submitted successfully!");
           } catch (error) {
             console.error("Submission failed:", error);
